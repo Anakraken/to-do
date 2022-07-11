@@ -1,10 +1,12 @@
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 import TodoCounter from '../components/TodoCounter';
 import TodoItem from '../components/TodoItem';
 import CreateTodoButton from '../components/CreateTodoButton';
 import TodoList from '../components/TodoList';
 import TodoSearcher from '../components/TodoSearcher';
 import { TodoContext } from '../hooks/TodoContex';
+import Modal from '../components/modales';
+import TodoForm from '../components/TodoForm';
 
 const AppUi = () => { 
   const {
@@ -12,7 +14,9 @@ const AppUi = () => {
       loading, 
       searcherTodos, 
       completeTodo, 
-      deleteTodo
+      deleteTodo,
+      openModal,
+      setOpenModal
   } = useContext(TodoContext);
 
   return (
@@ -40,7 +44,18 @@ const AppUi = () => {
             </TodoList>
           )}
         </TodoContext.Consumer>
-        <CreateTodoButton />
+
+        {!!openModal && (
+            <Modal>
+              <p><strong>Teletrasportacioooooon</strong></p>\
+              <h3>{searcherTodos[0]?.text}</h3>
+              <TodoForm />
+            </Modal>
+        )}
+
+        <CreateTodoButton 
+        setOpenModal={setOpenModal}
+        />
     </>
   );
 };

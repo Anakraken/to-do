@@ -13,6 +13,7 @@ const TodoProvider = ({children}) => {
   } = useLocalStorage('TODOS_V1', []);
 
   const [searchValue, setSearchValue] = useState('');
+  const [openModal, setOpenModal] = useState(false);
   
   const completedTodos = todos.filter(todo => !!todo.completed).length;
   const totalTodos = todos.length;
@@ -30,6 +31,16 @@ const TodoProvider = ({children}) => {
     })
   }
 
+  const addTodo = (text) => {
+    const newTodos = [...todos];
+    newTodos.push({
+        completed: false,
+        text,
+    });
+
+    saveTodos(newTodos);
+  };
+
   const completeTodo = (id) => {
     const todoIndex = todos.findIndex( todo => todo.id === id);
     const newTodos = [...todos];
@@ -42,7 +53,7 @@ const TodoProvider = ({children}) => {
     // }
   };
 
-  const deleteTodo = (id) => {
+const deleteTodo = (id) => {
   const todoIndex = todos.findIndex( todo => todo.id === id);
   const newTodos = [...todos];
   newTodos.splice(todoIndex, 1);
@@ -60,7 +71,10 @@ const TodoProvider = ({children}) => {
       setSearchValue,
       searcherTodos,
       completeTodo,
-      deleteTodo
+      deleteTodo,
+      openModal,
+      setOpenModal,
+      addTodo
     }}>
       {children}
     </TodoContext.Provider>

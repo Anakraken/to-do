@@ -1,8 +1,9 @@
 import React from 'react'
 
-const CreateTodoButton = () => {
+const CreateTodoButton = ({setOpenModal}) => {
   const onClick = () => {
-    alert('click')
+    alert('click');
+    setOpenModal(prevState => !prevState);
   };
 
   return (
