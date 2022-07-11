@@ -1,6 +1,9 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { TodoContext } from '../hooks/TodoContex'
 
-const TodoCounter = ({totalTodos,completedTodos}) => {
+const TodoCounter = () => {
+  const { totalTodos, completedTodos } = useContext(TodoContext);
+
   return (
     <div>
       <p>Haz Completado: {completedTodos}</p>
